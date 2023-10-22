@@ -1,0 +1,51 @@
+type VoidFunction = <T = undefined>(arg?: T) => void;
+export class GameLoop {
+  lastFrameTime: number;
+  accumulatedTime: number;
+  timeStep: number;
+  update: VoidFunction;
+  render: VoidFunction;
+  rafId: null | number;
+  isRunning: boolean;
+  constructor(update: VoidFunction, render: VoidFunction) {
+    this.lastFrameTime = 0;
+    this.accumulatedTime = 0;
+    this.timeStep = 1000 / 60;
+
+    this.update = update;
+    this.render = render;
+
+    this.rafId = null;
+    this.isRunning = false;
+  }
+
+  mainLoop(timestamp: number) {
+    if (!this.isRunning) return;
+    let deltaTime = timestamp - this.lastFrameTime;
+
+    this.lastFrameTime = timestamp;
+    this.accumulatedTime += deltaTime;
+
+    while (this.accumulatedTime >= this.timeStep) {
+      this.update(this.timeStep);
+      this.accumulatedTime -= this.timeStep;
+    }
+
+    this.render();
+    this.rafId = requestAnimationFrame(this.mainLoop.bind(this));
+  }
+
+  start() {
+    if (!this.isRunning) {
+      this.isRunning = true;
+      this.rafId = requestAnimationFrame(this.mainLoop.bind(this));
+    }
+  }
+
+  stop() {
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+    }
+    this.isRunning = false;
+  }
+}

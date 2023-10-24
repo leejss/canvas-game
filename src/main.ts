@@ -3,7 +3,7 @@ import { Input } from "./Input";
 import { resources } from "./Resource";
 import { Sprite } from "./Sprite";
 import { Vector2 } from "./Vector2";
-import { gridCell, isSpaceFree } from "./helpers/grid";
+import { isSpaceFree } from "./helpers/grid";
 import { moveTowards } from "./helpers/move";
 import { walls } from "./levels/level1";
 import "./style.css";

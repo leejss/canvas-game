@@ -15,6 +15,7 @@ export class Input {
       const dir = matchDirection(e.code) as Direction;
       this.onArrowPressed(dir);
     });
+
     document.addEventListener("keyup", (e) => {
       const dir = matchDirection(e.code) as Direction;
       this.onArrowReleased(dir);

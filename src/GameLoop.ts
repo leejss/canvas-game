@@ -1,5 +1,6 @@
 type VoidFunction = <T = undefined>(arg?: T) => void;
 type UpdateFunction = (deltaTime: number) => void;
+
 export class GameLoop {
   lastFrameTime: number;
   accumulatedTime: number;
@@ -8,10 +9,11 @@ export class GameLoop {
   render: VoidFunction;
   rafId: null | number;
   isRunning: boolean;
+
   constructor(update: UpdateFunction, render: VoidFunction) {
     this.lastFrameTime = 0;
     this.accumulatedTime = 0;
-    this.timeStep = 1000 / 60;
+    this.timeStep = 1000 / 60; // 60 FPS
 
     this.update = update;
     this.render = render;

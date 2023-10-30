@@ -1,6 +1,7 @@
 import { Animations } from "./Animations";
 import { FrameIndexPattern } from "./FrameIndexPattern";
 import { GameLoop } from "./GameLoop";
+import { GameObject } from "./GameObject";
 import { DOWN, Input, LEFT, RIGHT, UP } from "./Input";
 import { resources } from "./Resource";
 import { Sprite } from "./Sprite";
@@ -12,8 +13,12 @@ import { STAND_DOWN, STAND_LEFT, STAND_RIGHT, STAND_UP, WALK_DOWN, WALK_LEFT, WA
 import "./style.css";
 
 const canvas = document.getElementById("game-canvas") as HTMLCanvasElement;
-
 const ctx = canvas.getContext("2d")!;
+
+// Scene
+const mainScene = new GameObject({
+  position: new Vector2(0, 0),
+});
 
 const skySprite = new Sprite({
   name: "Sky",
@@ -27,6 +32,9 @@ const groundSprite = new Sprite({
   frameSize: new Vector2(320, 180),
 });
 
+mainScene.addChild(skySprite);
+mainScene.addChild(groundSprite);
+
 const heroSprite = new Sprite({
   name: "Hero",
   resource: resources.images.hero,
@@ -34,7 +42,6 @@ const heroSprite = new Sprite({
   hFrames: 3,
   vFrames: 8,
   frame: 1,
-  // position: new Vector2(gridCell(6), gridCell(5)),
   animations: new Animations({
     WALK_DOWN: new FrameIndexPattern(WALK_DOWN),
     WALK_UP: new FrameIndexPattern(WALK_UP),
@@ -105,28 +112,28 @@ const tryMove = () => {
 };
 
 const update = (delta: number) => {
-  const distance = moveTowards(heroSprite, heroDestination, 1);
-  const hasArrived = distance <= 1;
-
-  if (hasArrived) {
-    tryMove();
-  }
-  heroSprite.step(delta);
-  return;
+  // const distance = moveTowards(heroSprite, heroDestination, 1);
+  // const hasArrived = distance <= 1;
+  // if (hasArrived) {
+  //   tryMove();
+  // }
+  // heroSprite.step(delta);
+  // return;
+  mainScene.stepEntry(delta, mainScene);
 };
 
 const draw = () => {
-  skySprite.drawImage(ctx, 0, 0);
-  groundSprite.drawImage(ctx, 0, 0);
+  // skySprite.drawImage(ctx, 0, 0);
+  // groundSprite.drawImage(ctx, 0, 0);
 
-  const heroOffset = new Vector2(-8, -16);
-  const heroPosX = heroSprite.position.x + heroOffset.x;
-  const heroPosY = heroSprite.position.y + heroOffset.y;
+  // const heroOffset = new Vector2(-8, -16);
+  // const heroPosX = heroSprite.position.x + heroOffset.x;
+  // const heroPosY = heroSprite.position.y + heroOffset.y;
 
-  shadowSprite.drawImage(ctx, heroPosX, heroPosY);
-  heroSprite.drawImage(ctx, heroPosX, heroPosY);
+  // shadowSprite.drawImage(ctx, heroPosX, heroPosY);
+  // heroSprite.drawImage(ctx, heroPosX, heroPosY);
+  mainScene.draw(ctx, 0, 0);
 };
 
 const gameLoop = new GameLoop(update, draw);
-
 gameLoop.start();

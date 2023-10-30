@@ -1,7 +1,8 @@
 import { Animations } from "./Animations";
+import { GameObject } from "./GameObject";
 import { Vector2 } from "./Vector2";
 
-export class Sprite {
+export class Sprite extends GameObject {
   name: string;
   resource: {
     image: HTMLImageElement;
@@ -39,6 +40,9 @@ export class Sprite {
     position?: Vector2;
     animations?: Animations;
   }) {
+    super({
+      position,
+    });
     this.name = name;
     this.resource = resource;
     this.frameSize = frameSize ?? new Vector2(16, 16);

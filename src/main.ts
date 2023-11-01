@@ -7,7 +7,6 @@ import { resources } from "./Resource";
 import { Sprite } from "./Sprite";
 import { Vector2 } from "./Vector2";
 import { isSpaceFree } from "./helpers/grid";
-import { moveTowards } from "./helpers/move";
 import { walls } from "./levels/level1";
 import { STAND_DOWN, STAND_LEFT, STAND_RIGHT, STAND_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, WALK_UP } from "./objects/heroAnimaiton";
 import "./style.css";
@@ -15,7 +14,6 @@ import "./style.css";
 const canvas = document.getElementById("game-canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d")!;
 
-// Scene
 const mainScene = new GameObject({
   position: new Vector2(0, 0),
 });
@@ -32,8 +30,8 @@ const groundSprite = new Sprite({
   frameSize: new Vector2(320, 180),
 });
 
-mainScene.addChild(skySprite);
-mainScene.addChild(groundSprite);
+mainScene.addChildren([skySprite, groundSprite]);
+mainScene.input = new Input();
 
 const heroSprite = new Sprite({
   name: "Hero",
@@ -119,6 +117,8 @@ const update = (delta: number) => {
   // }
   // heroSprite.step(delta);
   // return;
+
+  // ! Pass root GameObject
   mainScene.stepEntry(delta, mainScene);
 };
 

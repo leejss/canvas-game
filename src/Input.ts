@@ -1,7 +1,12 @@
 import { isIn, matchDirection } from "./utils";
 
-export type Direction = "UP" | "DOWN" | "LEFT" | "RIGHT";
-
+export const DIRECTION = {
+  UP: "UP",
+  DOWN: "DOWN",
+  LEFT: "LEFT",
+  RIGHT: "RIGHT",
+} as const;
+export type Direction = keyof typeof DIRECTION;
 export const UP = "UP";
 export const DOWN = "DOWN";
 export const LEFT = "LEFT";

@@ -1,22 +1,26 @@
+import { Input } from "./Input";
 import { Vector2 } from "./Vector2";
 
-// Data structure for game objects
-// Can create a tree of game objects
 export class GameObject {
   position: Vector2;
   children: GameObject[];
+  input?: Input;
 
   constructor({ position }: { position?: Vector2 }) {
     this.position = position ?? new Vector2(0, 0);
     this.children = [];
   }
 
+  // Recusively call stepEntry
   stepEntry(delta: number, root: GameObject) {
     this.children.forEach((ch) => ch.stepEntry(delta, root));
     this.step(delta, root);
   }
 
-  step(_delta: number, _root: GameObject) {}
+  // Should be overriden
+  step(_delta: number, _root: GameObject) {
+    // Update method
+  }
 
   draw(ctx: CanvasRenderingContext2D, x: number, y: number) {
     const drawPosX = x + this.position.x;
@@ -28,6 +32,7 @@ export class GameObject {
     this.children.forEach((ch) => ch.draw(ctx, drawPosX, drawPosY));
   }
 
+  // Should be overriden
   drawImage(_ctx: CanvasRenderingContext2D, _drawPosX: number, _drawPosY: number) {}
 
   addChild(child: GameObject) {

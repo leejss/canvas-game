@@ -15,12 +15,18 @@ Canvas game
 - This instance hold the keyboard input state.
 - And GmaeObject instance should have a reference to this instance so that it can use the keyboard input state.
 
+## Drawing image
+
 ## Animation frame
 
 - How animation works ?
 - FrmaeIndexPattern and Animation classes
 - Each FrameIndexPattern instance has current time and given duration.
-- step method is called inside game loop  
+- step method is called inside game loop
+- FramdIndexPattern instance's step method updates current time and then it decide whether to show which frame index
+- Animation has a duration and steps of the frame index.
+- Animation instance's play method update active key and reset the start time of the animation pattern.
+- Animation's step method is called by Sprite's step method and Sprite's step method is called by GameObject' stepEntry method. So finally Animation's step method is continuosly called in the game loop. We can define the animation inside GameObject's step method.
 
 ## Memo
 

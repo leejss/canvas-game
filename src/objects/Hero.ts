@@ -1,10 +1,14 @@
+import { Animations } from "../Animations";
+import { FrameIndexPattern } from "../FrameIndexPattern";
 import { GameObject } from "../GameObject";
 import { DIRECTION, Direction } from "../Input";
+import { resources } from "../Resource";
 import { Sprite } from "../Sprite";
 import { Vector2 } from "../Vector2";
 import { isSpaceFree } from "../helpers/grid";
 import { moveTowards } from "../helpers/move";
 import { walls } from "../levels/level1";
+import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "./heroAnimaiton";
 
 export class Hero extends GameObject {
   body: Sprite;
@@ -15,6 +19,26 @@ export class Hero extends GameObject {
     super({
       position: new Vector2(x, y),
     });
+
+    this.body = new Sprite({
+      name: "Hero",
+      resource: resources.images.hero,
+      frameSize: new Vector2(32, 32),
+      hFrames: 3,
+      vFrames: 8,
+      frame: 1,
+      animations: new Animations({
+        WALK_DOWN: new FrameIndexPattern(WALK_DOWN),
+        WALK_UP: new FrameIndexPattern(WALK_UP),
+        WALK_LEFT: new FrameIndexPattern(WALK_LEFT),
+        WALK_RIGHT: new FrameIndexPattern(WALK_RIGHT),
+        STAND_DOWN: new FrameIndexPattern(STAND_DOWN),
+        STAND_UP: new FrameIndexPattern(STAND_UP),
+        STAND_LEFT: new FrameIndexPattern(STAND_LEFT),
+        STAND_RIGHT: new FrameIndexPattern(STAND_RIGHT),
+      }),
+    });
+    this.addChild(this.body);
   }
 
   tryMove(root: GameObject) {
@@ -23,16 +47,16 @@ export class Hero extends GameObject {
 
     if (!input.direction) {
       if (this.facingDirection === DIRECTION.LEFT) {
-        this.body.animations.play("standLeft");
+        this.body.animations?.play("STAND_LEFT");
       }
       if (this.facingDirection === DIRECTION.RIGHT) {
-        this.body.animations.play("standRight");
+        this.body.animations?.play("STAND_RIGHT");
       }
       if (this.facingDirection === DIRECTION.UP) {
-        this.body.animations.play("standUp");
+        this.body.animations?.play("STAND_UP");
       }
       if (this.facingDirection === DIRECTION.DOWN) {
-        this.body.animations.play("standDown");
+        this.body.animations?.play("STAND_DOWN");
       }
 
       return;
@@ -41,7 +65,6 @@ export class Hero extends GameObject {
     const gridSize = 16; // px
 
     // Update standing animation
-
     let nextX = this.destinationPosition.x;
     let nextY = this.destinationPosition.y;
 
@@ -70,6 +93,7 @@ export class Hero extends GameObject {
       this.destinationPosition.y = nextY;
     }
 
+    this.facingDirection = input.direction ?? this.facingDirection;
     this.body.animations?.play(walkAnimation[this.facingDirection]);
   }
 

@@ -1,6 +1,5 @@
 import type { FrameIndexPattern } from "./FrameIndexPattern";
 
-// Pass config to animations
 type Patterns = {
   [key: string]: FrameIndexPattern;
 };

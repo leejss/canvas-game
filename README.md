@@ -17,6 +17,9 @@ Canvas game
 
 ## Drawing image
 
+- Root GameObject recursively call draw method of its children. Each GameObject instance has drawImage method. And its drawImage method will be implemented by its child class.
+- drawImage method takes a rendering context, and the position of the image.
+
 ## Animation frame
 
 - How animation works ?
@@ -27,6 +30,10 @@ Canvas game
 - Animation has a duration and steps of the frame index.
 - Animation instance's play method update active key and reset the start time of the animation pattern.
 - Animation's step method is called by Sprite's step method and Sprite's step method is called by GameObject' stepEntry method. So finally Animation's step method is continuosly called in the game loop. We can define the animation inside GameObject's step method.
+
+## Event system
+
+- Event system is a collection of event listeners and these listeners are called when the event is triggered.
 
 ## Memo
 

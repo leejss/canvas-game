@@ -1,3 +1,4 @@
+import { events } from "./Events";
 import { GameLoop } from "./GameLoop";
 import { GameObject } from "./GameObject";
 import { Input } from "./Input";
@@ -53,6 +54,10 @@ const update = (delta: number) => {
   mainScene.stepEntry(delta, mainScene);
 };
 
+events.on("HERO_POSITION_CHANGED", (position) => {
+  console.log("HERO_POSITION_CHANGED", position);
+});
+
 const draw = () => {
   // skySprite.drawImage(ctx, 0, 0);
   // groundSprite.drawImage(ctx, 0, 0);
@@ -63,6 +68,7 @@ const draw = () => {
 
   // shadowSprite.drawImage(ctx, heroPosX, heroPosY);
   // heroSprite.drawImage(ctx, heroPosX, heroPosY);
+
   mainScene.draw(ctx, 0, 0);
 };
 

@@ -1,4 +1,5 @@
 import { Animations } from "../Animations";
+import { events } from "../Events";
 import { FrameIndexPattern } from "../FrameIndexPattern";
 import { GameObject } from "../GameObject";
 import { DIRECTION, Direction } from "../Input";
@@ -14,6 +15,8 @@ export class Hero extends GameObject {
   body: Sprite;
   facingDirection: Direction = DIRECTION.DOWN;
   destinationPosition = this.position.duplicate();
+  lastX = -1;
+  lastY = -1;
 
   constructor(x: number, y: number) {
     super({
@@ -39,6 +42,16 @@ export class Hero extends GameObject {
       }),
     });
     this.addChild(this.body);
+  }
+
+  emitPosition() {
+    // Emit position when it changes
+    const isSamePosition = this.lastX === this.position.x && this.lastY === this.position.y;
+    if (isSamePosition) return;
+
+    this.lastX = this.position.x;
+    this.lastY = this.position.y;
+    events.emit("HERO_POSITION_CHANGED", this.position);
   }
 
   tryMove(root: GameObject) {
@@ -103,5 +116,7 @@ export class Hero extends GameObject {
     if (distance <= 1) {
       this.tryMove(root);
     }
+
+    this.emitPosition();
   }
 }

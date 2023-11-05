@@ -1,4 +1,4 @@
-import { events } from "./Events";
+import { Camera } from "./Camera";
 import { GameLoop } from "./GameLoop";
 import { GameObject } from "./GameObject";
 import { Input } from "./Input";
@@ -35,6 +35,9 @@ const hero = new Hero(gridCell(6), gridCell(5));
 mainScene.addChild(hero);
 mainScene.input = new Input();
 
+const camera = new Camera();
+mainScene.addChild(camera);
+
 const shadowSprite = new Sprite({
   name: "Shadow",
   resource: resources.images.shadow,
@@ -42,34 +45,17 @@ const shadowSprite = new Sprite({
 });
 
 const update = (delta: number) => {
-  // const distance = moveTowards(heroSprite, heroDestination, 1);
-  // const hasArrived = distance <= 1;
-  // if (hasArrived) {
-  //   tryMove();
-  // }
-  // heroSprite.step(delta);
-  // return;
-
   // ! Pass root GameObject
   mainScene.stepEntry(delta, mainScene);
 };
 
-events.on("HERO_POSITION_CHANGED", (position) => {
-  console.log("HERO_POSITION_CHANGED", position);
-});
-
 const draw = () => {
-  // skySprite.drawImage(ctx, 0, 0);
-  // groundSprite.drawImage(ctx, 0, 0);
-
-  // const heroOffset = new Vector2(-8, -16);
-  // const heroPosX = heroSprite.position.x + heroOffset.x;
-  // const heroPosY = heroSprite.position.y + heroOffset.y;
-
-  // shadowSprite.drawImage(ctx, heroPosX, heroPosY);
-  // heroSprite.drawImage(ctx, heroPosX, heroPosY);
-
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  skySprite.drawImage(ctx, 0, 0);
+  ctx.save();
+  ctx.translate(camera.position.x, camera.position.y);
   mainScene.draw(ctx, 0, 0);
+  ctx.restore();
 };
 
 const gameLoop = new GameLoop(update, draw);

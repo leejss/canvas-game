@@ -1,14 +1,14 @@
 type Callback = {
   id: number;
   eventName: string;
-  callback: (val: unknown) => void;
+  callback: (val: any) => void;
 };
 
 class Events {
   callbacks: Callback[] = [];
   nextId = 0;
 
-  on(eventName: string, callback: (val: unknown) => void) {
+  on(eventName: string, callback: (val: any) => void) {
     this.nextId += 1;
     this.callbacks.push({
       id: this.nextId,

@@ -35,6 +35,13 @@ Canvas game
 
 - Event system is a collection of event listeners and these listeners are called when the event is triggered.
 
+## Camera system
+
+- Camera system is for creating moving effect.
+- Camera instance has a position and it is updated by position of hero. We use hero's position as a reference point.
+- When we draw an image, we subtract the camera position from the image position. So the image will be drawn at the same position relative to the camera position.
+- Clear rendering context and then translate the rendering context by camera position.
+
 ## Memo
 
 - Game state reside in the game object's properties

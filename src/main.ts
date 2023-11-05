@@ -3,6 +3,7 @@ import { GameLoop } from "./GameLoop";
 import { GameObject } from "./GameObject";
 import { Input } from "./Input";
 import { resources } from "./Resource";
+import { Rod } from "./Rod";
 import { Sprite } from "./Sprite";
 import { Vector2 } from "./Vector2";
 import { gridCell } from "./helpers/grid";
@@ -28,21 +29,23 @@ const groundSprite = new Sprite({
   frameSize: new Vector2(320, 180),
 });
 
-mainScene.addChild(skySprite);
 mainScene.addChild(groundSprite);
+const hero = new Hero(gridCell(2) + 8, gridCell(2) - 2);
+const rod = new Rod(gridCell(7) + 16, gridCell(5) + 14);
 
-const hero = new Hero(gridCell(6), gridCell(5));
+mainScene.addChild(rod);
+
 mainScene.addChild(hero);
 mainScene.input = new Input();
 
 const camera = new Camera();
 mainScene.addChild(camera);
 
-const shadowSprite = new Sprite({
-  name: "Shadow",
-  resource: resources.images.shadow,
-  frameSize: new Vector2(32, 32),
-});
+// const shadowSprite = new Sprite({
+//   name: "Shadow",
+//   resource: resources.images.shadow,
+//   frameSize: new Vector2(32, 32),
+// });
 
 const update = (delta: number) => {
   // ! Pass root GameObject

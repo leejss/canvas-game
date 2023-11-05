@@ -2,6 +2,14 @@
 
 Canvas game
 
+original: <https://youtu.be/HmxNrlPx8iY?si=NYgEHDGNTCWTtgM0>
+
+## Mananing resoruces
+
+- Single resource manager instance
+- Resource manager instance has a map of resources and handle loading and getting resources
+- Resource manager has images property and it is a map of image name and image node
+
 ## Grid(or Tile based) movement
 
 - 2D space is grid of fixed length of tiles.
@@ -41,6 +49,12 @@ Canvas game
 - Camera instance has a position and it is updated by position of hero. We use hero's position as a reference point.
 - When we draw an image, we subtract the camera position from the image position. So the image will be drawn at the same position relative to the camera position.
 - Clear rendering context and then translate the rendering context by camera position.
+
+## Collision detection
+
+- Collision detection is a process of detecting whether two objects are colliding.
+
+## Position of GameObject
 
 ## Memo
 

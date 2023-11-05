@@ -8,7 +8,7 @@ export class Sprite extends GameObject {
     image: HTMLImageElement;
     isLoaded: boolean;
   };
-  frameSize: Vector2;
+  frameSize;
   hFrames: number;
   vFrames: number;
   frame: number;
@@ -32,7 +32,7 @@ export class Sprite extends GameObject {
       image: HTMLImageElement;
       isLoaded: boolean;
     };
-    frameSize: Vector2;
+    frameSize?: Vector2;
     hFrames?: number;
     vFrames?: number;
     frame?: number;

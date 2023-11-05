@@ -22,6 +22,7 @@ export class GameLoop {
     this.isRunning = false;
   }
 
+  // Render and update loop
   mainLoop(timestamp: number) {
     if (!this.isRunning) return;
     let deltaTime = timestamp - this.lastFrameTime;

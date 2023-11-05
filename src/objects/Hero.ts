@@ -101,6 +101,8 @@ export class Hero extends GameObject {
       nextX += gridSize;
     }
 
+    console.log(nextX, nextY);
+
     if (isSpaceFree(walls, nextX, nextY)) {
       this.destinationPosition.x = nextX;
       this.destinationPosition.y = nextY;
